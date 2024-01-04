@@ -1,6 +1,8 @@
 # Боты в телеграм и ВК с нейросетью [DigitalFlow](https://dialogflow.cloud.google.com/#/getStarted)
 
 Боты отвечают на приходящие сообщения. Берут данные из своей БД [DigitalFlow](https://dialogflow.cloud.google.com/#/getStarted). Можно обучать на [Сайте](https://dialogflow.cloud.google.com/#/getStarted) или через скрипт.
+- [Ознакомиться](https://t.me/the_game_of_verb_bot) с телеграм ботом
+- [Ознакомиться](https://vk.com/club224024972) с ботом Вконтакте
 
 ## Окружение
 
@@ -34,6 +36,8 @@ pip install -r requirements.txt
 
 `VK_API_KEY` = Присвоить `API-ключ` группы вконтакте. ([Инструкция](https://pechenek.net/social-networks/vk/api-vk-poluchaem-klyuch-dostupa-token-gruppy/))
 
+`TG_CHAT_ID_LOG'` = Присвоить `ID-аккаунта` телеграм куда будут приходить сообщения о логах
+
 После заполнения данных, можно прочитать файл `.env` можно увидеть примерно следующее:
 
 ```bash
@@ -41,6 +45,7 @@ $ cat .env
 TG_BOT_API='11111111:tgbotapiexample'
 GOOGLE_APPLICATION_CREDENTIALS='path/to/credentials.json'
 VK_API_KEY='vkapikeyexample'
+TG_CHAT_ID_LOG='12345687890'
 ```
 
 ## Запуск ботов

@@ -4,6 +4,11 @@
 - [Ознакомиться](https://t.me/the_game_of_verb_bot) с телеграм ботом
 - [Ознакомиться](https://vk.com/club224024972) с ботом Вконтакте
 
+  ![Peek 2024-01-05 01-08](https://github.com/Forluc/devman_bot_3/assets/75582238/90f17f1d-ef87-4d4c-8008-70c0ed06653a)
+
+  ![Peek 2024-01-05 01-13](https://github.com/Forluc/devman_bot_3/assets/75582238/1876b5a2-4dbc-46a4-b5c9-0cd10237f93d)
+
+
 ## Окружение
 
 ### Требования к установке

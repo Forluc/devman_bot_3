@@ -6,12 +6,24 @@ from google.cloud import dialogflow
 from telegram import Update
 from telegram.ext import (CallbackContext, CommandHandler, Filters,
                           MessageHandler, Updater)
+import telegram
 
 env = Env()
 env.read_env()
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__file__)
+
+
+class TelegramLogsHandler(logging.Handler):
+    def __init__(self, tg_bot, chat_id):
+        super().__init__()
+        self.chat_id = chat_id
+        self.bot = tg_bot
+
+    def emit(self, record):
+        log_entry = self.format(record)
+        self.bot.send_message(chat_id=self.chat_id, text=log_entry)
 
 
 def get_detect_intent_texts(project_id: str, session_id: str, text: str, language_code: str) -> str:
@@ -56,10 +68,12 @@ def text_handler(update: Update, context: CallbackContext) -> None:
 
 def main() -> None:
     bot_token = env.str('TG_BOT_API')
+    tg_chat_id_log = env.str('TG_CHAT_ID_LOG')
+
+    logger.addHandler(TelegramLogsHandler(telegram.Bot(token=bot_token), tg_chat_id_log))
 
     updater = Updater(bot_token)
     dispatcher = updater.dispatcher
-
     dispatcher.add_handler(CommandHandler("start", start_handler))
     dispatcher.add_handler(MessageHandler(Filters.text & (~Filters.command), text_handler))
 

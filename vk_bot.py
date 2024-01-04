@@ -7,6 +7,7 @@ from google.cloud import dialogflow
 from vk_api.longpoll import VkEventType, VkLongPoll
 
 from tg_bot import get_google_credentials
+import telegram
 
 env = Env()
 env.read_env()
@@ -15,6 +16,17 @@ vk_api_key = env.str('VK_API_KEY')
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__file__)
+
+
+class TelegramLogsHandler(logging.Handler):
+    def __init__(self, tg_bot, chat_id):
+        super().__init__()
+        self.chat_id = chat_id
+        self.bot = tg_bot
+
+    def emit(self, record):
+        log_entry = self.format(record)
+        self.bot.send_message(chat_id=self.chat_id, text=log_entry)
 
 
 def get_detect_intent_texts(project_id: str, session_id: str, text: str, language_code: str) -> str:
@@ -54,9 +66,16 @@ def sending_dialogflow_messages(event, vk_api) -> None:
 
 
 if __name__ == "__main__":
+    bot_token = env.str('TG_BOT_API')
+    tg_chat_id_log = env.str('TG_CHAT_ID_LOG')
+
+    logger.info('Старт бота Вконтакте')
+    logger.addHandler(TelegramLogsHandler(telegram.Bot(token=bot_token), tg_chat_id_log))
+
     vk_session = vk.VkApi(token=vk_api_key)
     vk_api = vk_session.get_api()
     longpoll = VkLongPoll(vk_session)
+
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
             sending_dialogflow_messages(event, vk_api)

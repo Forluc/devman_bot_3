@@ -3,3 +3,4 @@ google-cloud-dialogflow==2.26.0
 python-telegram-bot==13.0
 requests==2.31.0
 google-api-python-client==2.111.0
+vk_api==11.9.9

@@ -70,6 +70,7 @@ $ python tg_bot.py
 ## Обучение DigitalFlow через скрипт
 
 - Заполнить файл `questions.json` нужными данными. `Intent: {questions:[question, question, ...], answer}`
+- Присвоить переменной `QUESTIONS` путь до файла с вопросами в файле `.env`(по умолчанию создать файл questions.json рядом со скриптом `learning_digitalflow.py`)
 - Обязательна к заполнению в `.env` переменная `GOOGLE_APPLICATION_CREDENTIALS`(Присвоить путь до файла `credentials.json`)
 
 ### Цель проекта

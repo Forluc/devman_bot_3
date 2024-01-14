@@ -3,6 +3,10 @@ import json
 from google.cloud import dialogflow
 
 from tg_bot import get_google_credentials
+from environs import Env
+
+env = Env()
+env.read_env()
 
 
 def create_intent(project_id, display_name, training_phrases_parts, message_texts):
@@ -31,7 +35,8 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
 
 
 def main():
-    with open('questions.json', 'r') as file:
+    questions = env.str('QUESTIONS', 'questions.json')
+    with open(questions, 'r') as file:
         questions_json = file.read()
 
     questions = json.loads(questions_json)

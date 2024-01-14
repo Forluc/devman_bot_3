@@ -26,7 +26,7 @@ def get_google_credentials() -> dict:
         return json.loads(file.read())
 
 
-def get_detect_intent_texts(project_id: str, session_id: str, text: str, language_code: str, need_fallback=True) -> str:
+def get_detect_intent_texts(project_id: str, session_id: str, text: str, language_code: str) -> str:
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
 
@@ -43,6 +43,4 @@ def get_detect_intent_texts(project_id: str, session_id: str, text: str, languag
     )
     logger.info(f'Fulfillment text: {response.query_result.fulfillment_text}')
 
-    if not need_fallback:
-        if not response.query_result.intent.is_fallback:
-            return response.query_result.fulfillment_text
+    return response

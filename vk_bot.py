@@ -20,10 +20,11 @@ def sending_dialogflow_messages(event, vk_api) -> None:
         language_code='ru',
         need_fallback=False
     )
-    if reply_text:
+
+    if not reply_text.query_result.intent.is_fallback:
         vk_api.messages.send(
             user_id=event.user_id,
-            message=reply_text,
+            message=reply_text.query_result.fulfillment_text,
             random_id=random.randint(1, 1000)
         )
 

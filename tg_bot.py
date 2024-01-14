@@ -24,7 +24,7 @@ def text_handler(update: Update, context: CallbackContext) -> None:
         language_code=update.effective_user.language_code,
     )
 
-    update.message.reply_text(reply_text)
+    update.message.reply_text(reply_text.reply_text.query_result.fulfillment_text)
 
 
 def main() -> None:

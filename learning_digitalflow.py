@@ -1,9 +1,9 @@
 import json
 
+from environs import Env
 from google.cloud import dialogflow
 
-from tg_bot import get_google_credentials
-from environs import Env
+from func import get_google_credentials
 
 env = Env()
 env.read_env()

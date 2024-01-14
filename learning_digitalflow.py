@@ -41,12 +41,12 @@ def main():
 
     questions = json.loads(questions_json)
 
-    for question in questions.items():
+    for intent, value in questions.items():
         create_intent(
             project_id=get_google_credentials()['quota_project_id'],
-            display_name=question[0],
-            training_phrases_parts=question[1]['questions'],
-            message_texts=[question[1]['answer']],
+            display_name=intent,
+            training_phrases_parts=value['questions'],
+            message_texts=[value['answer']],
         )
 
 

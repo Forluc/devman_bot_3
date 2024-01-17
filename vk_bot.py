@@ -13,13 +13,12 @@ from logger import TelegramLogsHandler
 logger = logging.getLogger(__file__)
 
 
-def sending_dialogflow_messages(event, vk_api) -> None:
+def sending_dialogflow_messages(event, vk_api, google_application_credentials) -> None:
     reply_text = get_detect_intent_texts(
-        project_id=get_google_credentials()['quota_project_id'],
+        project_id=get_google_credentials(google_application_credentials)['quota_project_id'],
         session_id=event.user_id,
         text=event.text,
-        language_code='ru',
-        need_fallback=False
+        language_code='ru'
     )
 
     if not reply_text.query_result.intent.is_fallback:
@@ -37,6 +36,7 @@ if __name__ == "__main__":
     bot_token = env.str('TG_BOT_API')
     tg_chat_id_log = env.str('TG_CHAT_ID_LOG')
     vk_api_key = env.str('VK_API_KEY')
+    google_application_credentials = env.str('GOOGLE_APPLICATION_CREDENTIALS')
 
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
     logger.info('Старт бота Вконтакте')
@@ -48,4 +48,4 @@ if __name__ == "__main__":
 
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            sending_dialogflow_messages(event, vk_api)
+            sending_dialogflow_messages(event, vk_api, google_application_credentials)

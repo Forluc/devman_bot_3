@@ -1,17 +1,13 @@
 import json
 import logging
 
-from environs import Env
 from google.cloud import dialogflow
 
 logger = logging.getLogger(__file__)
 
 
-def get_google_credentials() -> dict:
-    env = Env()
-    env.read_env()
-
-    with open(env.str('GOOGLE_APPLICATION_CREDENTIALS'), 'r') as file:
+def get_google_credentials(google_application_credentials) -> dict:
+    with open(google_application_credentials, 'r') as file:
         return json.loads(file.read())
 
 

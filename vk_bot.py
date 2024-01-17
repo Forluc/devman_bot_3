@@ -6,8 +6,9 @@ import vk_api as vk
 from environs import Env
 from vk_api.longpoll import VkEventType, VkLongPoll
 
-from func import (TelegramLogsHandler, get_detect_intent_texts,
-                  get_google_credentials)
+from google_dialogflow_api import (get_detect_intent_texts,
+                                   get_google_credentials)
+from logger import TelegramLogsHandler
 
 logger = logging.getLogger(__file__)
 

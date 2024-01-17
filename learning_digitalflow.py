@@ -3,7 +3,7 @@ import json
 from environs import Env
 from google.cloud import dialogflow
 
-from func import get_google_credentials
+from google_dialogflow_api import get_google_credentials
 
 
 def create_intent(project_id, display_name, training_phrases_parts, message_texts):

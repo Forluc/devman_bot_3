@@ -5,9 +5,6 @@ from google.cloud import dialogflow
 
 from func import get_google_credentials
 
-env = Env()
-env.read_env()
-
 
 def create_intent(project_id, display_name, training_phrases_parts, message_texts):
     intents_client = dialogflow.IntentsClient()
@@ -35,6 +32,9 @@ def create_intent(project_id, display_name, training_phrases_parts, message_text
 
 
 def main():
+    env = Env()
+    env.read_env()
+
     questions = env.str('QUESTIONS', 'questions.json')
     with open(questions, 'r') as file:
         questions_json = file.read()
